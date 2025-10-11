@@ -14,6 +14,11 @@ int playerExperience = 0; //to track exp gain
 //Function Prototypes
 void displayTitle();
 void displayIntro();
+void CharacterStats(const string& playerName, int characterChoice);
+void SelectCharacter();
+void DisplaySkills(int characterChoice);
+void Store();
+void Inventory();
 
 int main() {
 	//Welcome user
@@ -139,5 +144,39 @@ void Skills() {
 }
 
 //Store w purchasable items
+void Store() {
+	cout << "Welcome to the Item Shop! \n\n";
+	//FIXME: make shop open at level 10
+	cout << "SYSTEM: You have not met the requirements to use this feature \n\n";
+	cout << "Sorry, but the store is closed for rennovations.\n";
+	cout << "Check back later for new items! \n\n";
+	Mainmenu();
+}
 
-//function to mimick battle sequence (main function)
+//Inventory
+//FIXME add feature to make items consumable
+//add feature to create item description (class?)
+void Inventory() {
+	cout << "Your bag contains a 'World Map' received from home! (It wouldn't hurt to call home sometime...\n";
+	cout << "You found the 'Savior's Crest' and the 'Mysterious Stone!'" << endl;
+	cout << "Wow! There's also x5 'Smoke Balls' in here! How lucky!" << endl;
+	cout << "But wait, there's more! You found 3 sandwiches! (Thanks mom!)" << endl;
+	cout << endl;
+	Mainmenu();
+}
+
+//Simulates battle system
+void Wilderness() {
+
+
+
+}
+
+//function which displays the main menu
+//Allows user to go into the wilderness, visit the item shop, check inventory
+//view skills, and quit the experience.
+void Mainmenu() {
+
+
+
+}
