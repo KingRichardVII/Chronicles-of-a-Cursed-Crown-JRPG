@@ -15,17 +15,21 @@ int playerExperience = 0; //to track exp gain
 void displayTitle();
 void displayIntro();
 void CharacterStats(const string& playerName, int characterChoice);
-void SelectCharacter();
-void DisplaySkills(int characterChoice);
 void Store();
 void Inventory();
+void Wilderness();
+void SelectCharacter();
+void DisplaySkills();
+void displayOutro(const string& playerName);
+void Mainmenu();
 
 int main() {
 	//Welcome user
 	displayTitle();
 	//Introduce the game
 	displayIntro();
-	//ask for user name - const variable
+	SelectCharacter();
+	Mainmenu();
 
 
 	return 0;
@@ -48,11 +52,11 @@ void displayIntro() {
 }
 
 //character class with variables HP, strength, MP
-void selectClass() {
+void SelectCharacter() {
 	int characterChoice;
 
 	while (true) {
-		cout << "What is your name?: _______";
+		cout << "What is your name?: ";
 		cin >> playerName;
 
 		if (playerName.length() < 8) {
@@ -93,25 +97,29 @@ void CharacterStats(const string& playerName, int characterChoice) {
 		PlayerStr = 100;
 		PlayerMana = 30;
 		cout << playerName << ", here are your character stats as the (Lv.5) Warrior: \n\n";
+		break;
 	case 3: //Mage
 		PlayerHp = 100;
 		PlayerStr = 30;
 		PlayerMana = 250;
 		cout << playerName << ", here are your character stats as the (Lv.5) Mage: \n\n";
+		break;
 	default:
 		PlayerHp = 80;
-		PlayerStr =50;
+		PlayerStr = 50;
 		PlayerMana = 50;
 		cout << "Greetings, " << playerName << " Hm. It seems none of these roles suit you." << endl;
 		cout << "SYSTEM NOTICE: You are assigned as a classless adventurer!\n\n";
 		cout << "WARNING: A classless adventurer is unable to learn special skills \n\n";
 	}
-	cout << "Health: " << PlayerHp << "Strength: \n" << PlayerStr << "Mana:\n" << PlayerMana << "\n\n";
+	cout << "Health: " << PlayerHp << endl;
+	cout << "Strength: " << PlayerStr << endl;
+	cout << "Mana: " << PlayerMana << "\n\n";
 	Mainmenu(); //Main battle sequence FIXME
 }
 
 //Skills for each class 
-void Skills() {
+void DisplaySkills() {
 	int playerClass;
 
 	cout << "Which class skills would you like to see?" << endl;
@@ -167,8 +175,46 @@ void Inventory() {
 
 //Simulates battle system
 void Wilderness() {
+	cout << "You venture into the wilderness...\n";
 
+	string Creatures[] = {"Slimes (Lv. 1)", "Bandits (Lv. 2)", "Goblins (Lv.2)", "Ogres (Lv. 3)"};
+	
+	for (const auto& creature : Creatures){
+		cout << "Watch out! " << creature << " appear!\n";
+		cout << "Do you want to attack (A) or flee (F)? ";
 
+		//FIXME use TOUPPER Instead 
+		char choice;
+		cin >> choice;
+
+		if (choice == 'A' || choice == 'a') {
+			cout << "You bravelye attack the " << creature << " and emerge victorious!\n\n";
+			playerExperience += 83; //increment player experience
+		} else if (choice == 'F' || choice == 'f') {
+			cout << "You used a smoke bomb! " << creature << " are afflicted by the whiffer status. \n\n";
+			cout << "You got away safely! " << endl << endl;
+			playerExperience += 0;
+		} else {
+			cout << "Invalid choice! The " << creature << " used ROAR!\n";
+			cout << "Your attack stat has been lowered by 1 stage! " << endl;
+			cout << "You have sustained damage! \n";
+			cout << "You managed to barely escape...\n\n";
+			playerExperience += 0;
+		}
+	}//end of loop
+	
+	cout << "You've explored the wilderness and gained experience!\n";
+	cout << "Total Experience: " << playerExperience << endl << endl;
+	Mainmenu();
+}
+
+//Message that shows up after user quit game
+void displayOutro(const string& playerName) {
+	cout << "Congratulations, " << playerName << "! You have completed Chronicles of a Cursed Crown! \n";
+	cout << "Thanks for playing!\n";
+	cout << endl;
+	cout << "Dev Team: \n";
+	cout << "Richard Phan \n";
 
 }
 
@@ -176,7 +222,38 @@ void Wilderness() {
 //Allows user to go into the wilderness, visit the item shop, check inventory
 //view skills, and quit the experience.
 void Mainmenu() {
+	string choice;
+	int characterChoice;
 
+	cout << "===== Main Menu =====\n";
+	cout << "1: Explore the Wilderness \n";
+	cout << "2: Visit the Item Shop\n";
+	cout << "3: Check Inventory\n";
+	cout << "4: View Skills\n";
+	cout << "5: Quicksave and Quit the Adventure\n";
+
+	cin >> choice;
+
+	switch (choice[0]) {
+	case '1':
+		Wilderness();
+		break;
+	case '2':
+		Store();
+		break;
+	case '3':
+		Inventory();
+		break;
+	case '4':
+		DisplaySkills();
+		break;
+	case '5':
+		displayOutro(playerName);
+		exit(0);
+	default:
+		cout << "Invalid Choice! Choose a valid option from the menu. (Press a number between 1-5\n";
+		Mainmenu();
+	}
 
 
 }
