@@ -8,6 +8,9 @@
 #include <string>
 using namespace std;
 
+string playerName;
+int playerExperience = 0; //to track exp gain
+
 //Function Prototypes
 void displayTitle();
 void displayIntro();
@@ -40,8 +43,100 @@ void displayIntro() {
 }
 
 //character class with variables HP, strength, MP
+void selectClass() {
+	int characterChoice;
 
+	while (true) {
+		cout << "What is your name?: _______";
+		cin >> playerName;
+
+		if (playerName.length() < 8) {
+			break;
+		}
+		else {
+			cout << "Hey! Were you dozing off? (Enter a name with less than 8 characters)" << endl;
+		}
+	}
+	
+	cout << "\n Welcome " << playerName << "! Nice to meet you! Now, " << endl;\
+	cout << "1: Hero\n";
+	cout << "2: Warrior\n";
+	cout << "3: Mage\n";
+	cin >> characterChoice;
+
+	//Call character stats based on choice
+	CharacterStats(playerName, characterChoice);
+	cout << endl;
+		
+
+}
 //Class skills
+void CharacterStats(const string& playerName, int characterChoice) {
+	int PlayerHp,
+		PlayerStr,
+		PlayerMana;
+
+	switch (characterChoice) {
+	case 1: //Hero
+		PlayerHp = 150;
+		PlayerStr = 95;
+		PlayerMana = 120;
+		cout << playerName << ", here are your character stats as the (Lv.5) Legendary Hero: \n\n";
+		break;
+	case 2: //Warrior
+		PlayerHp = 350;
+		PlayerStr = 100;
+		PlayerMana = 30;
+		cout << playerName << ", here are your character stats as the (Lv.5) Warrior: \n\n";
+	case 3: //Mage
+		PlayerHp = 100;
+		PlayerStr = 30;
+		PlayerMana = 250;
+		cout << playerName << ", here are your character stats as the (Lv.5) Mage: \n\n";
+	default:
+		PlayerHp = 80;
+		PlayerStr =50;
+		PlayerMana = 50;
+		cout << "Greetings, " << playerName << " Hm. It seems none of these roles suit you." << endl;
+		cout << "SYSTEM NOTICE: You are assigned as a classless adventurer!\n\n";
+		cout << "WARNING: A classless adventurer is unable to learn special skills \n\n";
+	}
+	cout << "Health: " << PlayerHp << "Strength: \n" << PlayerStr << "Mana:\n" << PlayerMana << "\n\n";
+	Mainmenu(); //Main battle sequence FIXME
+}
+
+//Skills for each class 
+void Skills() {
+	int playerClass;
+
+	cout << "Which class skills would you like to see?" << endl;
+	cout << "1: Hero\n";
+	cout << "2: Warrior \n";
+	cout << "3: Mage \n";
+	cin >> playerClass;
+
+	//Make into switch statement?
+	if (playerClass == 1) {
+		cout << "- Holy Blade\n";
+		cout << "- Blessing of the Ancients\n";
+		cout << "- Speical Skill: Chosen One\n";
+	}
+	else if (playerClass == 2) {
+		cout << "- Dual Strike\n";
+		cout << "- Battle Cry\n";
+		cout << "- Special Skill: Berserker's Soul";
+	}
+	else if (playerClass == 3) {
+		cout << "- Firebolt\n";
+		cout << "- Ice Cannon\n";
+		cout << "- Monster Reborn\n";
+	}
+	else {
+		cout << "Invalid character choice! \n";
+	}
+
+	cout << endl;
+}
 
 //Store w purchasable items
 
